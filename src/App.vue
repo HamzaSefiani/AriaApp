@@ -44,65 +44,32 @@ Latest commit 4053572 on 7 Jan 2020
         <img src="./assets/logo/logo.png">
       </div>
       <div class="menu">
-        <a href="#">Music</a>
-        <a @click="singer">Singer</a>
-        <a href="#">Albums</a>
+        <button v-on:click="showsingers = false">Home</button>
+        <button v-on:click="showsingers = true" @click="pause">popular artists</button>
+        <button href="#">Playlists</button>
       </div>
     <div class="song-list">
       <h3>Song List</h3>
-      <a href="#">Jazz</a>
-      <a href="#">Contry Music</a>
-      <a href="#">Arabic Music</a>
-      <a href="#">See more</a>
+      <button href="#">Jazz</button>
+      <button href="#">Contry Music</button>
+      <button href="#">Arabic Music</button>
+      <button href="#">See more</button>
     </div>
 
     </div>
     <div class="right">
-      <header>
-        <div class="header-top">
-          <input type="text" placeholder="search a song or an artist" >
+      <div v-if="showsingers" class="singers">
+       <Singer />
 
-        </div>
-      <div class="artists">
-          <h3>Billboard Topchart</h3>
-          <div @click="previous" class="control-prev-btn">
-		 <i class="fas fa-chevron-left"></i>
-	</div>
-	<div @click="suivant" class="control-next-btn">
-		<i class="fas fa-chevron-right"></i>
-	</div>
-          <div id="albums">
-            <div class="album">
-              <img src="./assets/img/flymetothemoon.png">
-            </div>
-             <div class="album">
-              <img src="./assets/louis/Louis-Armstrong.png">
-            </div>
-             <div class="album">
-              <img src="./assets/NatKingCole/Nat-King-Cole.png">
-            </div>
-             <div class="album">
-              <img src="./assets/BrunoMars/Grenade1.png">
-            </div>
-             <div class="album">
-              <img src="./assets/BrunoMars/Grenade1.png">
-            </div>
-          
- 
-        </div>
-        </div>
+      </div>
+      <header v-if="!showsingers">
+       <Header />
     </header>
-    <main>
-        <section class="player">
- 
-                                        <img :src="current.img" id="img-song" class="">
-
-               
-
-
+    <main v-if="!showsingers">
+ <div class="player">
+          <img :src="current.img" id="img-song" class="">
           <h2 class="song-title">{{ current.title }} <br>
          <span>{{ current.artist }}</span></h2>
-  
       <div>
         <div class="line-time"></div>
       </div>
@@ -112,34 +79,39 @@ Latest commit 4053572 on 7 Jan 2020
           <button class="pause" v-else @click="pause"><i class="fas fa-pause-circle"></i></button>
           <button class="next" @click="next"><i class="fas fa-step-forward"></i></button>
         </div>
-      </section>
-      <section class="playlist">
-       
+      </div>
+      <div class="playlist">
         <div class="charts">
           <h3>Most Popular</h3>
         <button v-for="song in songs" :key="song.src"  @click="play(song)" :class="(song.src == current.src) ? 'song playing' : 'song'">
          <img :src="song.img">
          {{ song.title }} - {{ song.artist }}
         </button>
-        <!--<button v-for="image in images" :key="image.src" cl>
-         <img :src="image.src">
-        </button>-->
         </div>
-      </section>
-    </main>
+      </div>   
+       </main>
     </div>
-
   </div>
 </template>
-
 <script>
+import Header from  './components/Header.vue'
+import Singer from './components/Singer'
+import Player from './components/Player.vue'
 export default {
   name: 'app',
+  components:{
+    Header,
+    Singer,
+    Player
+
+  },
+ 
   data () {
     return {
       current: {},
       index: 0,
       isPlaying: false,
+      showsingers:false,
       
       images:[
         {
@@ -190,7 +162,7 @@ export default {
   methods: {
     singer()
    {
-     window.location.href="./components/singer.vue"
+   this.$router.push('./components/singer.vue'); 
    },
  previous(){
 		document.getElementById('albums').scrollLeft -= 270;
@@ -257,7 +229,7 @@ rotate(){
 }
 </script>
 
-<style>
+<style >
 * {
 	margin: 0;
 	padding: 0;
@@ -310,17 +282,25 @@ background: aliceblue;
   flex-direction: column;
   
 }
-.menu a, .song-list a{
+.menu button, .song-list button{
   position: relative;
   color: rgb(87, 87, 87);
-  margin-top: 20px;
+  margin-top: 10px;
   font-size: 14px;
+  width: 100%;
   text-align: left;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 4px;
+  padding-left: 6px;
   text-decoration: none;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
-a:hover{
+.menu button:hover{
   transform: scale(1.1);
+}
+.menu button:focus{
+  background: whitesmoke;
 }
 .song-list h3{
   font-size: 15px;
@@ -329,12 +309,14 @@ a:hover{
 .right{
   position: relative;
   width: 85%;
-background: #e7ebea;
+/*background: #e7ebea;*/
+background: #e4e4e4;
   height: 100vh;
 }
 header {
   position: relative;
   height: 40vh;
+  padding-top: 2vh;
   justify-content: center;
 
 }
@@ -359,13 +341,13 @@ header {
 	 color: #444;
 	 cursor: pointer;
 }
-header .header-top{
+.header-top{
   position: relative;
   width: 100%;
   line-height: 9vh;
   top: 0px;
 }
-header .header-top input{
+.header-top input{
   position: relative;
   width: 40%;
   line-height: 40px;
@@ -432,7 +414,47 @@ margin-left: 15px;
   	 transition: 1s linear ease-in-out;
 
 }
-.album img:hover{
+.singers{
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  top: 0px;
+  padding: 10px 0px;
+  width: 100%;
+  justify-content: center;
+  left: 0px;
+  padding: 20px;
+  margin: 0px;
+}
+.singer{
+  position: relative;
+  min-width:  25%;
+  height: 180px;
+    border-radius: 10px;
+left: 0px;
+justify-content: left;
+align-items: left;
+margin-left: 20px;
+margin-top: 40px;
+  	 transition: 1s linear ease-in-out;
+	 scroll-behavior: smooth;
+
+    box-shadow: 0px 5px 5px rgba(0,0,0,0.1);
+
+}
+.singer img{
+  position: relative;
+  width: 100%;
+  border-radius: 10px;
+  height: 100%;
+  pointer-events: all;
+  cursor: pointer;
+  	 transition: 1s linear ease-in-out;
+
+}
+
+.album img:hover, .singer img:hover{
   transform: scale(1.1);
 }
 .img-artist{
