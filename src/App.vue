@@ -31,15 +31,7 @@ Latest commit 4053572 on 7 Jan 2020
 199 lines (185 sloc)  3.82 KB
   
 <template>
- <div class="ad-container">
-    <Adsense
-      data-ad-client="ca-pub-1234567891234567"
-      data-ad-slot="1234567890"
-      data-ad-format="auto"
-      :data-full-width-responsive="true"
-    >
-    </Adsense>
-  </div>
+
 <head>
    <link 
         rel="stylesheet" 
@@ -67,6 +59,15 @@ Latest commit 4053572 on 7 Jan 2020
 
     </div>
     <div class="right">
+       <div class="ad-container">
+    <Adsense
+      data-ad-client="ca-pub-1234567891234567"
+      data-ad-slot="1234567890"
+      data-ad-format="auto"
+      :data-full-width-responsive="true"
+    >
+    </Adsense>
+  </div>
       <div v-if="showsingers" class="singers">
        <Singer />
 
