@@ -33,7 +33,8 @@ Latest commit 4053572 on 7 Jan 2020
 <template>
 
 <head>
-  <script data-ad-client="ca-pub-5193130426996685" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
    <link 
         rel="stylesheet" 
         href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" 
@@ -70,6 +71,7 @@ Latest commit 4053572 on 7 Jan 2020
        <Header />
     </header>
     <main v-if="!showsingers">
+     
  <div class="player">
           <img :src="current.img" id="img-song" class="">
           <h2 class="song-title">{{ current.title }} <br>
