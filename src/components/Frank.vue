@@ -72,9 +72,9 @@ export default {
         }
         ,
         {
-          title: 'I Love You Baby',
+          title: 'New York, New York',
           artist: 'Frank Sinatra',
-          src: require('./Franck-sinatra/Frankie Valli - Frank Sinatra I Love You Baby.mp3'),
+          src: require('./Franck-sinatra/Frank Sinatra - New York, New York.mp3'),
           img:require('./Franck-sinatra/flymetothemoon.png')
 
         },
